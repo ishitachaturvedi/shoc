@@ -1,0 +1,22 @@
+#include ../../../../src/common
+#include ../../../../src/cuda/common
+
+CUDA_DIR := /usr/local/cuda
+CUDA_LIB_DIR := $(CUDA_DIR)/lib
+
+CC := $(CUDA_DIR)/bin/nvcc
+
+INCLUDE_DIR := ../../../../src/common
+INDCLUDE1_DIR := ../../../../src/cuda/common
+
+#INCLUDE := include
+#INCLUDE1 := include1
+
+SRC = GEMM.cpp
+EXE = GEMM
+
+release: $(SRC)
+	nvcc  -g -O2 -L../../../../src/cuda/common  -L../../../../src/common -o GEMM GEMM.o main.o -lSHOCCommon "-L/root/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/root/cuda/bin/../targets/x86_64-linux/lib"  --cudart shared -lcublas
+
+clean:
+	rm GEMM

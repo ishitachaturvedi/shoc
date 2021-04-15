@@ -1,0 +1,20 @@
+#include ../../../../src/common
+#include ../../../../src/cuda/common
+
+CUDA_DIR := /usr/local/cuda
+CUDA_LIB_DIR := $(CUDA_DIR)/lib
+
+CC := $(CUDA_DIR)/bin/nvcc
+
+INCLUDE_DIR := ../../../../src/common
+INDCLUDE1_DIR := ../../../../src/cuda/common
+
+SRC = Triad.cu
+EXE = Triad
+
+release: $(SRC)
+	nvcc --cudart shared -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config -g -O2 -c Triad.cu
+	nvcc --cudart shared -g -O2 -L../../../../src/cuda/common  -L../../../../src/common -o Triad main.o Triad.o -lSHOCCommon "-L/root/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/root/cuda/bin/../targets/x86_64-linux/lib" -lcublas
+
+clean:
+	rm Triad

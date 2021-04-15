@@ -1,0 +1,17 @@
+Making all in epmpi
+make[1]: Entering directory '/scratch/ishitac/gpu_benchmarks/shoc/src/cuda/level1/fft/epmpi'
+/usr/bin/mpicxx -DHAVE_CONFIG_H -I. -I../../../../../config  -I/root/cuda/include -I../../../../../src/cuda/common -DPARALLEL -I../../../../../src/mpi/common  -I../../../../../src/common -I../../../../../config  -g -O2 -MT FFT.o -MD -MP -MF .deps/FFT.Tpo -c -o FFT.o ./../FFT.cpp
+mv -f .deps/FFT.Tpo .deps/FFT.Po
+/usr/bin/mpicxx -DHAVE_CONFIG_H -I. -I../../../../../config  -I/root/cuda/include -I../../../../../src/cuda/common -DPARALLEL -I../../../../../src/mpi/common  -I../../../../../src/common -I../../../../../config  -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o ./../../../common/main.cpp
+mv -f .deps/main.Tpo .deps/main.Po
+/root/cuda/bin/nvcc -gencode=arch=compute_30,code=sm_30 -gencode=arch=compute_32,code=sm_32 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm_37 -gencode=arch=compute_50,code=sm_50 -gencode=arch=compute_52,code=sm_52 -gencode=arch=compute_53,code=sm_53 -gencode=arch=compute_60,code=sm_60 -gencode=arch=compute_61,code=sm_61 -gencode=arch=compute_62,code=sm_62 -gencode=arch=compute_70,code=sm_70 -gencode=arch=compute_72,code=sm_72 -gencode=arch=compute_75,code=sm_75  -I../../../../../src/cuda/common  -I../../../../../src/common -I../../../../../config -g -O2 -c ./../fftlib.cu
+/usr/bin/mpicxx  -g -O2 -L../../../../../src/cuda/common  -L../../../../../src/common -o FFT FFT.o main.o fftlib.o -lSHOCCommon "-L/root/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/root/cuda/bin/../targets/x86_64-linux/lib" -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lrt -lrt
+make[1]: Leaving directory '/scratch/ishitac/gpu_benchmarks/shoc/src/cuda/level1/fft/epmpi'
+make[1]: Entering directory '/scratch/ishitac/gpu_benchmarks/shoc/src/cuda/level1/fft'
+g++ -DHAVE_CONFIG_H -I. -I../../../../config  -I/root/cuda/include -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config  -g -O2 -MT FFT.o -MD -MP -MF .deps/FFT.Tpo -c -o FFT.o FFT.cpp
+mv -f .deps/FFT.Tpo .deps/FFT.Po
+g++ -DHAVE_CONFIG_H -I. -I../../../../config  -I/root/cuda/include -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config  -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o ./../../common/main.cpp
+mv -f .deps/main.Tpo .deps/main.Po
+/root/cuda/bin/nvcc -gencode=arch=compute_30,code=sm_30 -gencode=arch=compute_32,code=sm_32 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm_37 -gencode=arch=compute_50,code=sm_50 -gencode=arch=compute_52,code=sm_52 -gencode=arch=compute_53,code=sm_53 -gencode=arch=compute_60,code=sm_60 -gencode=arch=compute_61,code=sm_61 -gencode=arch=compute_62,code=sm_62 -gencode=arch=compute_70,code=sm_70 -gencode=arch=compute_72,code=sm_72 -gencode=arch=compute_75,code=sm_75  -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config -g -O2 -c fftlib.cu
+g++  -g -O2 -L../../../../src/cuda/common  -L../../../../src/common -o FFT FFT.o main.o fftlib.o -lSHOCCommon "-L/root/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/root/cuda/bin/../targets/x86_64-linux/lib" -lcudadevrt -lcudart_static -lrt -lpthread -ldl -lrt -lrt
+make[1]: Leaving directory '/scratch/ishitac/gpu_benchmarks/shoc/src/cuda/level1/fft'

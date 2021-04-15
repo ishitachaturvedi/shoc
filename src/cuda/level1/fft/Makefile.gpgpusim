@@ -1,0 +1,28 @@
+#include ../../../../src/common
+#include ../../../../src/cuda/common
+
+CUDA_DIR := /usr/local/cuda
+CUDA_LIB_DIR := $(CUDA_DIR)/lib
+
+CC := $(CUDA_DIR)/bin/nvcc
+
+INCLUDE_DIR := ../../../../src/common
+INDCLUDE1_DIR := ../../../../src/cuda/common
+
+#INCLUDE := include
+#INCLUDE1 := include1
+
+SRC = FFT.cpp
+EXE = FFT
+SRC1 = fftlib.cu
+
+release: $(SRC)
+	nvcc --cudart shared -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config -g -O2 -c fftlib.cu
+	nvcc --cudart shared -g -O2 -L../../../../src/cuda/common  -L../../../../src/common -o FFT FFT.o main.o fftlib.o -lSHOCCommon
+	#$(CC) --cudart shared $(KERNEL_DIM) $(SRC) -o $(EXE) -I$(INCLUDE1_DIR)/support.h  -I$(INCLUDE_DIR)/ResultDatabase.h -I$(INCLUDE_DIR)/OptionParser.h -I$(INCLUDE_DIR)/Timer.h  -I/fftlib.h -L$(CUDA_LIB_DIR)
+
+fftlib.o : fftlib.cu
+	nvcc --cudart shared -I../../../../src/cuda/common  -I../../../../src/common -I../../../../config -g -O2 -c fftlib.cu
+
+clean:
+	rm FFT fftlib.o
