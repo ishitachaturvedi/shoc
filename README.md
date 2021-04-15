@@ -1,4 +1,16 @@
 
+GPGPUSIM COMPATIBLE SHOC
+
+Build steps-
+sh configure
+make
+make install
+GOTO src/cuda/level1
+GOTO desired benchmark
+copy Makefile.gpgpusim to Makefile
+make
+RUN THE BENCHMARK!
+
 The Scalable HeterOgeneous Computing (SHOC) benchmark suite is a
 collection of benchmark programs testing the performance and
 stability of systems using computing devices with non-traditional architectures
@@ -18,4 +30,6 @@ platform requires regenerating the configure script, see build-aux/bootstrap.sh
 and the manual for more details.
 
 Last update: 2014-04-13 15:39:22 kspaff
+
+
 
